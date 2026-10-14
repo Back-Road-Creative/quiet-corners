@@ -1,0 +1,55 @@
+{
+  "pipeline_version": "2.0.0",
+  "generated_at": "2026-07-31T00:58:20.154774+00:00",
+  "total_counties_scored": 3144,
+  "total_rural_counties": 1681,
+  "total_states": 51,
+  "coverage": {
+    "stability": {
+      "count": 3144,
+      "pct": 100.0
+    },
+    "remoteness": {
+      "count": 3144,
+      "pct": 100.0
+    },
+    "affordability": {
+      "count": 3140,
+      "pct": 99.9
+    }
+  },
+  "sprawl_factor_coverage": {
+    "interstate": {
+      "count": 1596,
+      "pct": 94.9
+    },
+    "permits": {
+      "count": 849,
+      "pct": 50.5
+    },
+    "migration": {
+      "count": 232,
+      "pct": 13.8
+    },
+    "metro_growth": {
+      "count": 1652,
+      "pct": 98.3
+    },
+    "recreation": {
+      "count": 310,
+      "pct": 18.4
+    }
+  },
+  "data_sources": {
+    "affordability": true,
+    "permits": true,
+    "metro_growth": true,
+    "migration": true,
+    "sprawl": true
+  },
+  "candidates": {
+    "total": 1597,
+    "with_coordinates": 1597,
+    "with_county_match": 1597
+  }
+}

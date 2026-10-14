@@ -1,0 +1,24 @@
+# Lint ratchet for svc-quiet-corners.
+#
+# `pyproject.toml`'s [tool.ruff.lint] already selects E F W I S (with E501,
+# S404, S603 ignored) and is clean today. This file extends that config and
+# turns on additional rule families that are ALSO already at zero findings,
+# so a family that passes now can never regress silently — no code changes,
+# no baseline suppressions, no per-file-ignores.
+#
+# Measured 2026-09-13 with ruff 0.15.22 (the version pinned in
+# .pre-commit-config.yaml / Makefile RUFF_VERSION), from this directory:
+#   ruff check . --output-format concise --no-cache          # baseline (pyproject config): clean
+#   ruff check . --extend-select <FAMILY> --no-cache          # per candidate family
+#
+# A family joins extend-select ONLY once it is already at zero findings.
+# Candidates measured and their result (findings count, or "clean"):
+#   E clean(inherited)  F clean(inherited)  W clean(inherited)  I clean(inherited)
+#   S clean(inherited)  TD clean -> ADDED
+#   N 1  UP 4  B 7  SIM 13  RUF 7  C90 6  PL 214  PT 11  ERA 3  T20 51  PERF 2
+# Rejected families are left for future cleanup PRs — do not add them here
+# until a separate change brings their findings to zero first.
+extend = "pyproject.toml"
+
+[lint]
+extend-select = ["TD"]
