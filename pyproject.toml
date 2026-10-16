@@ -18,6 +18,8 @@ dev = [
 [tool.pytest.ini_options]
 # Floor set 2 points under the measured 57% (2026-07-30) — raise as it climbs.
 addopts = "--cov=src --cov-fail-under=55"
+# ci/tests runs in the Secret scan step, where DETECT_SECRETS names the scanner.
+testpaths = ["tests", "tools/tests"]
 
 [tool.ruff]
 target-version = "py312"
