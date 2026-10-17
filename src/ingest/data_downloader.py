@@ -23,7 +23,7 @@ from src.ingest.consumption import consumed_open
 if TYPE_CHECKING:
     from src.core.models import Metro
 
-# Just under a calendar quarter. The monthly cron (`0 6 1 * *`, see CLAUDE.md)
+# Just under a calendar quarter. The monthly cron (`0 6 1 * *`, see README.md)
 # passes --force, so its runs always re-download; this TTL governs manual
 # --fetch runs, which may legitimately reuse a file up to this age.
 DEFAULT_MAX_AGE_DAYS = 80

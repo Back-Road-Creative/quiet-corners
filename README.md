@@ -19,12 +19,31 @@ bulk CSVs after their API endpoints were retired (see Data Sources). A county
 missing an input is scored over the factors it has, with the remaining weights
 renormalized. Exports feed the live dashboard at
 https://headlessmode.com/quiet-corners/, regenerated monthly by cron
-(`0 6 1 * *` running `bin/quiet-corners-refresh.sh --publish`; the crontab is
-documented in `CLAUDE.md`, "Regenerate the published dashboard data"). The
+(`0 6 1 * *` running `bin/quiet-corners-refresh.sh --publish`; see
+Headlessmode integration below). The
 underlying Census releases are annual or slower, so most monthly runs change
 no data.
 
 Archived 2026-04-06 alongside the dashboard.
+
+## Headlessmode integration
+
+Quiet Corners is a feature of Headlessmode, not a separate product: its only
+user-facing surface is the dashboard at https://headlessmode.com/quiet-corners/.
+This repository is the source of the data that dashboard reads.
+
+- **Destination.** The export (`python -m src.main --all <site>/static/data/quiet-corners --force`)
+  is written into the Headlessmode site repository at `static/data/quiet-corners/`.
+- **Refresh.** An operator script, `bin/quiet-corners-refresh.sh --publish`, runs
+  monthly from cron (`0 6 1 * *`). It regenerates the export, refuses a
+  regression against the published `summary.json` (`src/export/regression_guard.py`)
+  and opens a dated pull request on the Headlessmode site; the data goes live only
+  when that pull request merges. The script and crontab live with the operator,
+  outside this repository.
+- **Contract.** The Headlessmode site's `scripts/test_data_contract.py` checks
+  every field the dashboard script reads against the committed export; this
+  repository's `tests/test_export_contract.py` and `tests/test_source_lineage.py`
+  pin the export side.
 
 ## Exit Condition
 

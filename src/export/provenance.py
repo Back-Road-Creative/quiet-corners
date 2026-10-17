@@ -40,16 +40,16 @@ def _digest(path: Path) -> str:
     return h.hexdigest()
 
 
-# The refresh cadence, declared once. It is the crontab documented in this
-# service's CLAUDE.md ("Regenerate the published dashboard data"), installed in
-# joe's crontab; tests/test_source_lineage.py fails if the two drift. This is
+# The refresh cadence, declared once. It is the crontab documented in
+# README.md ("Headlessmode integration"); tests/test_source_lineage.py fails
+# if the two drift. This is
 # the *intended* schedule, not evidence that any given run happened: the
 # export's own run time is `generated_at`.
 REFRESH_SCHEDULE: dict[str, str] = {
     "cadence": "monthly",
     "cron": "0 6 1 * *",
     "command": "bin/quiet-corners-refresh.sh --publish",
-    "documented_in": "CLAUDE.md",
+    "documented_in": "README.md",
 }
 
 _DOWNLOAD_URLS = {**DOWNLOADS, **GAZETTEER_ZIPS}
