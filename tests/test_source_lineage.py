@@ -277,3 +277,36 @@ class TestScheduleProse:
 
     def test_provenance_module_exports_the_schedule(self):
         assert provenance.REFRESH_SCHEDULE is REFRESH_SCHEDULE
+
+
+class TestReadmeStatusAndQuickStart:
+    """The README states one status, opens with a title and a quick start."""
+
+    @staticmethod
+    def _readme() -> str:
+        return (SERVICE_DIR / "README.md").read_text()
+
+    def test_title_is_the_product_name(self):
+        assert self._readme().splitlines()[0] == "# Quiet Corners"
+
+    def test_states_one_status_not_both_active_and_archived(self):
+        status = self._readme().split("\n## Status\n", 1)[1].split("\n## ", 1)[0]
+        assert status.lstrip().startswith("Active")
+        assert "Archived" not in status
+
+    def test_no_stale_in_flight_wording(self):
+        assert "in-flight" not in self._readme()
+
+    def test_quick_start_precedes_the_purpose_and_runs_the_pipeline(self):
+        readme = self._readme()
+        assert "\n## Quick start\n" in readme
+        assert readme.index("\n## Quick start\n") < readme.index("\n## Purpose\n")
+        quick = readme.split("\n## Quick start\n", 1)[1].split("\n## ", 1)[0]
+        assert "CENSUS_API_KEY" in quick
+        assert "python -m src.main --all" in quick
+
+    def test_coverage_floor_matches_the_pyproject_floor(self):
+        pyproject = (SERVICE_DIR / "pyproject.toml").read_text()
+        floor = re.search(r"--cov-fail-under=(\d+)", pyproject)
+        assert floor, "pyproject.toml declares no coverage floor"
+        assert f"coverage floor of {floor.group(1)}%" in self._readme()
