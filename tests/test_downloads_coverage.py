@@ -1,7 +1,6 @@
 """data_downloader.py's gazetteer/RUCC parsing and the two
 load_metros_from_gazetteer join paths. download_file/download_and_unzip/
-download_all are a sibling PR's active fail-loud rework area, so they are
-intentionally left out here.
+download_all are covered in test_downloads.py, so they are left out here.
 """
 
 from pathlib import Path
