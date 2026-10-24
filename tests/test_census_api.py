@@ -67,8 +67,9 @@ class TestResponseParsing:
 class TestRetryLogic:
     """Client should retry on transient HTTP failures."""
 
+    @patch("src.ingest.census_api.time.sleep")
     @patch("src.ingest.census_api.requests.get")
-    def test_succeeds_on_third_attempt(self, mock_get):
+    def test_succeeds_on_third_attempt(self, mock_get, _sleep):
         """Retry twice, succeed on third."""
         response_ok = MagicMock()
         response_ok.status_code = 200
@@ -81,9 +82,13 @@ class TestRetryLogic:
         mock_get.side_effect = [response_fail, response_fail, response_ok]
 
         client = CensusClient()
+        started = time.monotonic()
         result = client.fetch("http://example.com/api", label="test")
+        elapsed = time.monotonic() - started
         assert result is not None
         assert len(result) == 2
+        # Backoff must be patched out: two real retries would sleep 6 s.
+        assert elapsed < 1
 
     @patch("src.ingest.census_api.time.sleep")
     @patch("src.ingest.census_api.requests.get")
