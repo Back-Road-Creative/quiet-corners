@@ -1,6 +1,19 @@
-# svc-quiet-corners
+# Quiet Corners
 
 Census-driven pipeline identifying remote, stable, low-sprawl US towns.
+
+## Quick start
+
+```bash
+python3 -m venv .venv
+.venv/bin/pip install -r requirements.lock
+export CENSUS_API_KEY=<key>          # free: https://api.census.gov/data/key_signup.html
+.venv/bin/python -m src.main --all ./out   # fetch + score + export to ./out
+.venv/bin/python -m mypy src --config-file pyproject.toml && .venv/bin/pytest
+```
+
+The test run enforces a coverage floor of 55% (`--cov-fail-under` in
+`pyproject.toml`). See Setup for each stage and the flags.
 
 ## Purpose
 
@@ -23,8 +36,6 @@ https://headlessmode.com/quiet-corners/, regenerated monthly by cron
 Headlessmode integration below). The
 underlying Census releases are annual or slower, so most monthly runs change
 no data.
-
-Archived 2026-04-06 alongside the dashboard.
 
 ## Headlessmode integration
 
@@ -87,7 +98,7 @@ and exports without affordability and state migration — the two sources
 gated on `CENSUS_API_KEY` (see `KEYED_SOURCES` in `src/main.py`). Building
 permits and metro growth are separate, keyless bulk-CSV sources, unaffected
 by `--allow-degraded` either way (see Data Sources for their current
-status). Once their in-flight re-source lands, sprawl risk in a degraded
+status). Sprawl risk in a degraded
 run comes from 4 of its 5 factors — state migration is the only one gated
 on the key — renormalized so scores stay on the same 0-100 scale. Use
 `--allow-degraded` for plumbing checks, not for anything that will be
