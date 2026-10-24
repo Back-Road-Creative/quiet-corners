@@ -12,7 +12,7 @@ export CENSUS_API_KEY=<key>          # free: https://api.census.gov/data/key_sig
 .venv/bin/python -m mypy src --config-file pyproject.toml && .venv/bin/pytest
 ```
 
-The test run enforces a coverage floor of 55% (`--cov-fail-under` in
+The test run enforces a coverage floor of 89% (`--cov-fail-under` in
 `pyproject.toml`). See Setup for each stage and the flags.
 
 ## Purpose
