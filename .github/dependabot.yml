@@ -1,0 +1,35 @@
+# Weekly dependency updates for the ecosystems this repository has manifests for.
+# pip reads pyproject.toml and ci/tools-requirements.txt. requirements.lock is
+# not a format Dependabot reads, so the runtime pins stay a manual refresh.
+version: 2
+updates:
+  - package-ecosystem: pip
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      python-minor-patch:
+        update-types:
+          - minor
+          - patch
+  - package-ecosystem: pip
+    directory: /ci
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      ci-tools-minor-patch:
+        update-types:
+          - minor
+          - patch
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      actions-minor-patch:
+        update-types:
+          - minor
+          - patch
