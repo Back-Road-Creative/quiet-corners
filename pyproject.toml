@@ -11,7 +11,8 @@ dependencies = [
 dev = [
     "pytest",
     "pytest-cov",
-    "ruff",
+    # Same version CI runs (ci/tools-requirements.txt); change both together.
+    "ruff==0.15.22",
     "mypy",
 ]
 

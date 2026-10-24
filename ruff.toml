@@ -6,8 +6,8 @@
 # so a family that passes now can never regress silently — no code changes,
 # no baseline suppressions, no per-file-ignores.
 #
-# Measured 2026-09-13 with ruff 0.15.22 (the version pinned in
-# .pre-commit-config.yaml / Makefile RUFF_VERSION), from this directory:
+# Measured 2026-09-13 with ruff 0.15.22 (the version CI runs, pinned in
+# ci/tools-requirements.txt), from this directory:
 #   ruff check . --output-format concise --no-cache          # baseline (pyproject config): clean
 #   ruff check . --extend-select <FAMILY> --no-cache          # per candidate family
 #
