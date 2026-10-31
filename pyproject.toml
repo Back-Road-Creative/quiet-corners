@@ -12,7 +12,7 @@ dev = [
     "pytest",
     "pytest-cov",
     # Same version CI runs (ci/tools-requirements.txt); change both together.
-    "ruff==0.17.1",
+    "ruff==0.17.3",
     "mypy",
 ]
 
